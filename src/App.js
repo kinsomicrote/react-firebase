@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
 import firebase from './firebase';
-import { AuthProvider } from './context/AuthContext';
 
 class App extends Component {
   state = {
@@ -9,7 +8,7 @@ class App extends Component {
   };
   componentDidMount() {
     console.log(this.state.authenticated);
-    firebase.auth().onAuthStateChanged(authenticated => {
+    firebase.auth().onAuthStateChanged((authenticated) => {
       authenticated
         ? this.setState(() => ({
             authenticated: true,
@@ -21,11 +20,7 @@ class App extends Component {
     });
   }
   render() {
-    return (
-      <AuthProvider value={{ authenticated: this.state.authenticated }}>
-        <Navigation />
-      </AuthProvider>
-    );
+    return <Navigation authenticated={this.state.authenticated} />;
   }
 }
 

@@ -10,21 +10,21 @@ class Register extends Component {
     error: null,
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const { email, password } = this.state;
 
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(user => {
-        this.props.history.push('/dashboard');
+      .then((user) => {
+        this.props.history.push('/');
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error: error });
       });
   };
@@ -37,13 +37,13 @@ class Register extends Component {
             <Subhead>Register</Subhead>
           </Box>
         </Flex>
-        {error
-          ? <Flex>
-              <Box>
-                <Text>{error.message}</Text>
-              </Box>
-            </Flex>
-          : null}
+        {error ? (
+          <Flex>
+            <Box>
+              <Text>{error.message}</Text>
+            </Box>
+          </Flex>
+        ) : null}
         <Flex>
           <Box>
             <form onSubmit={this.handleSubmit}>
